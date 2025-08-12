@@ -1,147 +1,146 @@
 #footer {
-  background-color: $black;
-
-  .footer-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-    padding: 50px 0;
-
-    .logo {
-      max-width: 140px;
-
-      img {
-        transition: transform 0.3s ease;
-      }
-
-      &:hover img {
-        transform: scale(1.1);
-      }
-    }
-
-    .links-social {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-
-      a {
-        width: 32px;
-        height: 32px;
-
-        img {
-          transition: transform 0.3s ease;
-        }
-
-        &:hover img {
-          transform: scale(1.1);
-        }
-      }
-    }
-  }
-
-  .footer-main {
-    display: flex;
-    justify-content: space-between;
+  .footer-columns {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 50px;
-    flex-wrap: wrap;
-    padding-right: 100px;
-    padding-bottom: 50px;
+    padding: 50px 0;
+    border-bottom: 1px solid $border-color;
+
+    @media (max-width: 768px) {
+      grid-template-columns: repeat(1, 1fr);
+    }
 
     .footer-column {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 420px;
+
       h3 {
         @include title-footer;
-        color: $primaryCream;
+        color: $title-footer;
       }
 
       ul {
         display: flex;
         flex-direction: column;
-        gap: 5px;
-        margin-top: 10px;
+        gap: 10px;
 
-        a {
+        .link-footer {
           display: block;
           width: max-content;
           @include text;
-          color: $primaryCream;
+          color: $tertiaryColor;
           padding: 5px 0;
           position: relative;
-          transition: all 0.3s ease;
+          opacity: 1;
+          transform: translateY(0);
+          transition: opacity 0.4s ease, transform 0.4s ease;
 
           &::after {
             content: "";
             position: absolute;
             left: 0;
-            bottom: 1px;
+            bottom: 3px;
             width: 0%;
             height: 2px;
-            background-color: $primaryCream;
+            background-color: $tertiaryColor;
             transition: width 0.4s ease;
           }
 
           &:hover {
-            color: darken($primaryCream, 10%);
             transform: translateY(-2px);
+
             &::after {
               width: 100%;
             }
           }
         }
+
+        .link-atendimento {
+          @include text;
+          color: $text;
+          padding: 5px 0;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          transition: color 0.3s ease;
+
+          img.footer-icon {
+            transition: transform 0.3s ease;
+            will-change: transform;
+          }
+
+          &:hover,
+          &:focus {
+            color: $primaryColor;
+
+            img.footer-icon {
+              transform: translateX(4px) rotate(10deg);
+              filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.1));
+            }
+          }
+        }
       }
-    }
 
-    address {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      font-style: normal;
+      .footer-payment {
+        p {
+          @include text-small;
+          color: $text-footer;
+          margin-bottom: 5px;
+        }
 
-      a,
-      p {
-        display: block;
-        width: max-content;
-        @include text;
-        color: $primaryCream;
-        opacity: 0.6;
+        .footer-cards {
+          img {
+            max-width: 405px;
+            object-fit: contain;
 
-        span {
-          display: block;
-          font-size: 12px;
-          text-transform: uppercase;
-          margin-bottom: 10px;
+            @media (max-width: 768px) {
+              max-width: 100%;
+            }
+          }
+        }
+
+        .footer-cards-bottom {
+          display: flex;
+          gap: 10px;
+          margin-top: 10px;
+
+          img {
+            max-width: 61px;
+            object-fit: contain;
+          }
         }
       }
     }
   }
 
   .footer-bottom {
-    padding: 20px 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 20px;
     flex-wrap: wrap;
-    border-top: 1px solid $border-color;
+    gap: 20px;
+    padding: 10px 0;
 
-    @media (max-width: 768px) {
-      justify-content: center;
-      text-align: center;
+    > div {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
     }
 
     p {
       @include text-small;
-      color: $primaryCream;
-      opacity: 0.8;
+      color: $text-footer-bottom;
 
       a {
-        color: $primaryCream;
-        text-decoration: underline;
-        transition: opacity 0.3s ease;
+        color: $text-footer-bottom;
+        transition: color 0.3s ease;
 
-        &:hover {
-          opacity: 0.6;
+        &:hover,
+        &:focus {
+          color: $primaryColor;
+          text-decoration: underline;
         }
       }
     }

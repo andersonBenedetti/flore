@@ -34,9 +34,10 @@ $font-secondary: "Queen Rogette", serif;
 }
 
 @mixin title-footer {
-  font-weight: 600;
+  font-weight: 700;
   font-size: 1em;
-  line-height: 24px;
+  line-height: 1;
+  text-transform: uppercase;
 }
 
 @mixin title-section {

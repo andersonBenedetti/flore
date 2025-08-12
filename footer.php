@@ -1,88 +1,85 @@
 <?php
 $footer_menu_institucional = [
-    ['label' => 'Quem somos', 'url' => '#'],
-    ['label' => 'Seja um profissional parceiro', 'url' => '#'],
-    ['label' => 'Ferramentas', 'url' => '#'],
+    ['label' => 'Sobre nós', 'url' => '#'],
+    ['label' => 'Central de Atendimento', 'url' => '#'],
+    ['label' => 'Políticas da loja', 'url' => '#'],
     ['label' => 'Blog', 'url' => '#'],
-    ['label' => 'Fale conosco', 'url' => '#'],
+    ['label' => 'Minha conta', 'url' => '#'],
 ];
 
-$footer_menu_infos = [
-    ['label' => 'Manual de uso e cuidados', 'url' => '#'],
-    ['label' => 'Perguntas frequentes', 'url' => '#'],
-    ['label' => 'Políticas de privacidade', 'url' => '#'],
-    ['label' => 'Políticas de frete', 'url' => '#'],
-    ['label' => 'Trocas e devoluções', 'url' => '#'],
+$footer_menu_atendimento = [
+    ['label' => '(48) 99999-9999', 'url' => '#', 'icon' => 'telefone.svg'],
+    ['label' => 'atendimento@floreveste.com.br', 'url' => '#', 'icon' => 'email.svg'],
+    ['label' => 'R. Vicente Nunes Barcelos, 218 - Santa Barbara, Criciúma - SC, 88804-090', 'url' => '#', 'icon' => 'local.svg'],
 ];
 ?>
 
 <footer id="footer">
     <div class="container">
-        <div class="footer-top">
-            <a href="/" class="logo" aria-label="Voltar para página inicial">
-                <img src="<?php echo get_stylesheet_directory_uri(); ?>/img/logo-footer.svg"
-                    alt="Logo Vaso & Cor - Voltar para página inicial" loading="lazy" width="150" height="auto">
-            </a>
-
-            <div class="links-social">
-                <a href="#" title="Siga no Instagram" target="_blank" rel="noopener noreferrer">
-                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/icons/instagram.svg" alt="Instagram"
-                        loading="lazy" width="24" height="24">
-                </a>
-                <a href="#" title="Inscreva-se no YouTube" target="_blank" rel="noopener noreferrer">
-                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/icons/youtube.svg" alt="YouTube"
-                        loading="lazy" width="24" height="24">
-                </a>
-            </div>
-        </div>
-
-        <div class="footer-main">
-            <address class="footer-column">
-                <a href="https://wa.me/554834690743" target="_blank" rel="noopener noreferrer">
-                    <span>Telefone/WhatsApp:</span>+55 (48) 3469-0743
-                </a>
-
-                <a href="mailto:faleconosco@vasoecor.com.br">
-                    <span>E-mail:</span>faleconosco@vasoecor.com.br
-                </a>
-
-                <p>
-                    <span>Horário de atendimento:</span>Segunda a sexta — 08h30 às 18h00
-                </p>
-            </address>
-
+        <div class="footer-columns">
             <nav class="footer-column" aria-labelledby="footer-institucional">
                 <h3 id="footer-institucional">Institucional</h3>
                 <ul>
                     <?php
                     foreach ($footer_menu_institucional as $item) {
-                        echo '<li><a href="' . esc_url($item['url']) . '" aria-label="' . esc_html($item['label']) . '">' . esc_html($item['label']) . '</a></li>';
+                        echo '<li><a class="link-footer" href="' . esc_url($item['url']) . '" aria-label="' . esc_html($item['label']) . '">' . esc_html($item['label']) . '</a></li>';
                     }
                     ?>
                 </ul>
             </nav>
 
-            <nav class="footer-column" aria-labelledby="footer-informacoes">
-                <h3 id="footer-informacoes">Informações</h3>
+            <nav class="footer-column" aria-labelledby="footer-atendimento">
+                <h3 id="footer-atendimento">Atendimento</h3>
                 <ul>
                     <?php
-                    foreach ($footer_menu_infos as $item) {
-                        echo '<li><a href="' . esc_url($item['url']) . '" aria-label="' . esc_html($item['label']) . '">' . esc_html($item['label']) . '</a></li>';
+                    $icon_base_url = get_stylesheet_directory_uri() . '/icons/';
+                    foreach ($footer_menu_atendimento as $item) {
+                        $icon_url = $icon_base_url . $item['icon'];
+                        echo '<li><a class="link-atendimento" href="' . esc_url($item['url']) . '" aria-label="' . esc_html($item['label']) . '">';
+                        echo '<img src="' . esc_url($icon_url) . '" alt="" class="footer-icon" aria-hidden="true" /> ';
+                        echo esc_html($item['label']);
+                        echo '</a></li>';
                     }
                     ?>
                 </ul>
+            </nav>
+
+            <nav class="footer-column" aria-labelledby="footer-pagamento">
+                <h3 id="footer-pagamento">Formas de pagamento</h3>
+                <div class="footer-payment">
+                    <div class="footer-cards">
+                        <p>Cartões de crédito</p>
+                        <img src="<?php echo get_stylesheet_directory_uri(); ?>/img/cartoes.webp"
+                            alt="Cartões de crédito">
+                    </div>
+
+                    <div class="footer-cards-bottom">
+                        <div>
+                            <p>Boleto</p>
+                            <img src="<?php echo get_stylesheet_directory_uri(); ?>/img/boleto.webp" alt="Boleto">
+                        </div>
+
+                        <div>
+                            <p>Pix</p>
+                            <img src="<?php echo get_stylesheet_directory_uri(); ?>/img/pix.webp" alt="Pix">
+                        </div>
+                    </div>
+                </div>
             </nav>
         </div>
 
         <div class="footer-bottom">
-            <p>Vaso e Cor. Todos os direitos reservados.</p>
+            <div>
+                <p>Florê – CNPJ: 00.000.000/0000-00</p>
+                <p>Todos os direitos reservados.</p>
+            </div>
             <p>Desenvolvido por <a href="#" rel="noopener noreferrer" target="_blank">Blume Web Studio</a></p>
         </div>
     </div>
 </footer>
 
-<a href="https://wa.me/554834690743" class="whatsapp-float" target="_blank" aria-label="Fale conosco no WhatsApp">
-    <img src="https://cdn.jsdelivr.net/gh/rafaelbotazini/floating-whatsapp/whatsapp.svg" alt="WhatsApp" width="60"
+<a href="https://wa.me/5548999999999" class="whatsapp-float" target="_blank" aria-label="Fale conosco no WhatsApp">
+    <img src="<?php echo get_stylesheet_directory_uri(); ?>/icons/whatsapp-float.svg" alt="WhatsApp" width="60"
         height="60">
 </a>
 

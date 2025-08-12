@@ -1,0 +1,149 @@
+#footer {
+  background-color: $black;
+
+  .footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 50px 0;
+
+    .logo {
+      max-width: 140px;
+
+      img {
+        transition: transform 0.3s ease;
+      }
+
+      &:hover img {
+        transform: scale(1.1);
+      }
+    }
+
+    .links-social {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+
+      a {
+        width: 32px;
+        height: 32px;
+
+        img {
+          transition: transform 0.3s ease;
+        }
+
+        &:hover img {
+          transform: scale(1.1);
+        }
+      }
+    }
+  }
+
+  .footer-main {
+    display: flex;
+    justify-content: space-between;
+    gap: 50px;
+    flex-wrap: wrap;
+    padding-right: 100px;
+    padding-bottom: 50px;
+
+    .footer-column {
+      h3 {
+        @include title-footer;
+        color: $primaryCream;
+      }
+
+      ul {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        margin-top: 10px;
+
+        a {
+          display: block;
+          width: max-content;
+          @include text;
+          color: $primaryCream;
+          padding: 5px 0;
+          position: relative;
+          transition: all 0.3s ease;
+
+          &::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 1px;
+            width: 0%;
+            height: 2px;
+            background-color: $primaryCream;
+            transition: width 0.4s ease;
+          }
+
+          &:hover {
+            color: darken($primaryCream, 10%);
+            transform: translateY(-2px);
+            &::after {
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+
+    address {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      font-style: normal;
+
+      a,
+      p {
+        display: block;
+        width: max-content;
+        @include text;
+        color: $primaryCream;
+        opacity: 0.6;
+
+        span {
+          display: block;
+          font-size: 12px;
+          text-transform: uppercase;
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
+
+  .footer-bottom {
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    border-top: 1px solid $border-color;
+
+    @media (max-width: 768px) {
+      justify-content: center;
+      text-align: center;
+    }
+
+    p {
+      @include text-small;
+      color: $primaryCream;
+      opacity: 0.8;
+
+      a {
+        color: $primaryCream;
+        text-decoration: underline;
+        transition: opacity 0.3s ease;
+
+        &:hover {
+          opacity: 0.6;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+/*
+Theme Name: FloreTheme
+Theme URI: https://blumewebstudio.com.br
+Author: Blume Web Studio
+Author URI: https://blumewebstudio.com.br
+Description: Tema criado para a Florê.
+Version: 1.0
+*/
+
+@import "themes/colors";
+
+@import "base/typography";
+@import "base/geral";
+
+@import "components/header";
+@import "components/menu-header";
+@import "components/footer";
+@import "components/buttons";
+@import "components/product-list";
+@import "components/input-search";
+@import "components/whats-float";
+@import "components/dots";
+@import "components/popup";
+@import "components/toggle";
+
+@import "pages/page-home";
+@import "pages/page-form";
+@import "pages/archive-product";
+@import "pages/single-product";
+@import "pages/index";

@@ -1,0 +1,89 @@
+@font-face {
+  font-family: "Queen Rogette";
+  src: url("../fonts/QueenRogette.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+$font-primary: "Manrope", sans-serif;
+$font-secondary: "Queen Rogette", serif;
+
+@mixin text {
+  font-size: 1em;
+  font-weight: 400;
+  line-height: 1;
+}
+
+@mixin text-small {
+  font-size: 0.875em;
+  font-weight: 400;
+  line-height: 1;
+}
+
+@mixin text-medium {
+  font-weight: 500;
+  font-size: 1.125em;
+  line-height: 26px;
+}
+
+@mixin link-menu {
+  font-size: 1em;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+@mixin title-footer {
+  font-weight: 600;
+  font-size: 1em;
+  line-height: 24px;
+}
+
+@mixin title-section {
+  font-weight: 600;
+  font-size: 4.375em;
+  line-height: 84px;
+  text-transform: uppercase;
+
+  @media (max-width: 768px) {
+    font-size: 2.5em;
+    line-height: 48px;
+  }
+}
+
+@mixin title-card-cat {
+  font-weight: 600;
+  font-size: 1.5em;
+  line-height: 28.8px;
+}
+
+@mixin btn-cat {
+  font-weight: 600;
+  font-size: 1em;
+  line-height: 19.2px;
+}
+
+@mixin text-list {
+  font-weight: 600;
+  font-size: 2em;
+  line-height: 1;
+  text-transform: uppercase;
+
+  @media (max-width: 767px) {
+    font-size: 1.4375em;
+  }
+}
+
+@mixin title-format {
+  font-weight: 600;
+  font-size: 1.5em;
+  line-height: 1;
+}
+
+@mixin text-top {
+  font-weight: 500;
+  font-size: 0.813em;
+  line-height: 1;
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
+}

@@ -1,6 +1,6 @@
 @font-face {
   font-family: "Queen Rogette";
-  src: url("../fonts/QueenRogette.woff") format("woff");
+  src: url("./fonts/QueenRogette.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -41,14 +41,13 @@ $font-secondary: "Queen Rogette", serif;
 }
 
 @mixin title-section {
-  font-weight: 600;
-  font-size: 4.375em;
-  line-height: 84px;
-  text-transform: uppercase;
+  font-family: $font-secondary;
+  font-weight: 400;
+  font-size: 2.5em;
+  line-height: 1;
 
   @media (max-width: 768px) {
-    font-size: 2.5em;
-    line-height: 48px;
+    font-size: 2em;
   }
 }
 
@@ -87,4 +86,29 @@ $font-secondary: "Queen Rogette", serif;
   line-height: 1;
   letter-spacing: 0.2px;
   text-transform: uppercase;
+}
+
+@mixin title-card {
+  font-weight: 600;
+  font-size: 0.875em;
+  line-height: 1;
+}
+
+@mixin price-product {
+  font-weight: 800;
+  font-size: 1em;
+  line-height: 1;
+}
+
+@mixin label-promo {
+  font-weight: 600;
+  font-size: 0.75em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+@mixin subtitle {
+  font-weight: 400;
+  font-size: 2em;
+  line-height: 1;
 }

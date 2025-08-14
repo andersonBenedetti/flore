@@ -1,38 +1,118 @@
 .products-list {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 4em 1em;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
 
-  @media (max-width: 1024px) {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 3em 1em;
+  @media (max-width: 768px) {
+    justify-content: center;
   }
 
-  @media (max-width: 600px) {
-    grid-template-columns: 1fr;
-    gap: 2em 0;
-  }
+  .product-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1 1 calc(25% - 20px);
+    max-width: 312px;
+    position: relative;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1),
+      box-shadow 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1),
+      padding 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+    overflow: hidden;
+    background: $white;
+    padding-bottom: 10px;
 
-  .product-item a {
-    display: block;
-
-    img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      max-width: 377px;
-      max-height: 462px;
-      object-fit: cover;
-      border: 1px solid $border-product;
-      margin: 0 auto;
+    @media (max-width: 1024px) {
+      flex: 1 1 calc(50% - 20px);
+      justify-content: center;
     }
 
-    h3 {
-      @include text-medium;
-      color: $black;
-      text-transform: uppercase;
-      text-align: center;
-      padding: 1em 0;
+    @media (max-width: 768px) {
+      flex: 1 1 100%;
+      max-width: none;
+    }
+
+    &:hover {
+      transform: translateY(-10px) scale(1.05);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      padding: 5px;
+
+      .product-img {
+        img {
+          transform: scale(1.03);
+          filter: brightness(1.05);
+        }
+      }
+
+      .product-name {
+        color: $tertiaryColor;
+      }
+
+      .product-price {
+        transform: scale(1.05);
+      }
+    }
+
+    a {
+      display: block;
+      text-decoration: none;
+    }
+
+    .product-img {
+      max-width: 312px;
+      height: 400px;
+      position: relative;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: all 0.4s ease;
+      }
+
+      &::after {
+        opacity: 0;
+      }
+
+      .product-badge {
+        position: absolute;
+        left: 0;
+        top: 20px;
+        display: block;
+        background-color: $tertiaryColor;
+        padding: 5px 20px;
+        @include label-promo;
+        color: $white;
+        z-index: 2;
+      }
+    }
+
+    .product-name {
+      @include text;
+      color: $title-product;
+      margin: 1em 0;
+      transition: color 0.3s;
+    }
+
+    .product-price {
+      @include price-product;
+      color: $tertiaryColor;
+      transition: transform 0.3s;
+
+      > del {
+        font-size: 0.875em;
+
+        span {
+          color: $price-promo;
+          font-weight: 600;
+        }
+      }
+
+      > ins {
+        text-decoration: none;
+        margin-left: 5px;
+      }
     }
   }
 }

@@ -2,20 +2,27 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 5px;
   width: max-content;
-  height: 40px;
-  padding: 0 30px;
-  @include btn-cat;
-  color: $white;
-  border: 0;
+  height: 54px;
+  padding: 0 50px;
+  @include text;
+  color: $tertiaryColor;
+  border: 1px solid $border-btn;
   box-sizing: border-box;
   border-radius: 0;
-  background-color: $black;
+  background-color: $white;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 
   &:hover {
     transform: scale(1.05);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  &.secondary {
+    background-color: $tertiaryColor;
+    border: 0;
+    color: $white;
   }
 }

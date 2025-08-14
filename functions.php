@@ -10,11 +10,11 @@ remove_action('admin_print_scripts', 'print_emoji_detection_script');
 remove_action('wp_print_styles', 'print_emoji_styles');
 remove_action('admin_print_styles', 'print_emoji_styles');
 
-function vaso_e_cor_add_woocommerce_support()
+function flore_add_woocommerce_support()
 {
     add_theme_support('woocommerce');
 }
-add_action('after_setup_theme', 'vaso_e_cor_add_woocommerce_support');
+add_action('after_setup_theme', 'flore_add_woocommerce_support');
 
 add_theme_support('post-thumbnails');
 
@@ -22,12 +22,12 @@ register_nav_menus([
     'categorias' => 'Categorias'
 ]);
 
-function vaso_e_cor_loop_shop_per_page()
+function flore_loop_shop_per_page()
 {
     return 9;
 }
 
-add_filter('loop_shop_per_page', 'vaso_e_cor_loop_shop_per_page');
+add_filter('loop_shop_per_page', 'flore_loop_shop_per_page');
 
 function format_products($products)
 {
@@ -37,23 +37,36 @@ function format_products($products)
         $products_final[] = [
             'id' => $product->get_id(),
             'name' => $product->get_name(),
+            'price' => $product->get_price_html(),
             'img' => $image ? $image[0] : '',
             'link' => $product->get_permalink(),
+            'on_sale' => $product->is_on_sale(),
         ];
     }
     return $products_final;
 }
 
-
-function vaso_e_cor_product_list($products)
+function flore_product_list($products)
 {
     echo '<ul class="products-list">';
     foreach ($products as $product) {
         ?>
         <li class="product-item">
             <a href="<?= esc_url($product['link']); ?>" class="product-link">
-                <img src="<?= esc_url($product['img']); ?>" alt="<?= esc_attr($product['name']); ?>" />
-                <h3><?= esc_html($product['name']); ?></h3>
+                <div class="product-img">
+                    <img src="<?= esc_url($product['img']); ?>" alt="<?= esc_attr($product['name']); ?>" />
+                    <?php if ($product['on_sale']): ?>
+                        <span class="product-badge">Promo</span>
+                    <?php endif; ?>
+                </div>
+
+                <h3 class="product-name">
+                    <?= esc_html($product['name']); ?>
+                </h3>
+
+                <span class="product-price">
+                    <?= wp_kses_post($product['price']); ?>
+                </span>
             </a>
         </li>
         <?php
@@ -99,7 +112,6 @@ function custom_post_type($post_type, $singular_name, $plural_name)
 
 add_action('init', function () {
     custom_post_type('carrossel', 'Carrossel', 'Carrossel');
-    custom_post_type('criadores-parceiros', 'Carrossel parceiros', 'Carrossel parceiros');
 });
 
 add_filter('woocommerce_catalog_orderby', 'custom_woocommerce_catalog_orderby', 20);

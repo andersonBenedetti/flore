@@ -112,3 +112,26 @@ $font-secondary: "Queen Rogette", serif;
   font-size: 2em;
   line-height: 1;
 }
+
+@mixin title-intro {
+  font-family: $font-secondary;
+  font-weight: 400;
+  font-size: 4em;
+  line-height: 1;
+
+  @media (max-width: 768px) {
+    font-size: 2.5em;
+  }
+}
+
+@mixin title-single {
+  font-family: $font-secondary;
+  font-weight: 400;
+  font-size: 3em;
+  line-height: 1;
+  letter-spacing: -3px;
+
+  @media (max-width: 768px) {
+    font-size: 2em;
+  }
+}

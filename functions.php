@@ -24,7 +24,7 @@ register_nav_menus([
 
 function flore_loop_shop_per_page()
 {
-    return 9;
+    return 4;
 }
 
 add_filter('loop_shop_per_page', 'flore_loop_shop_per_page');

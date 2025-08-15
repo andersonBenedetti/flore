@@ -1,11 +1,10 @@
 .products-list {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 20px;
+  justify-content: flex-start;
+  gap: 50px;
 
-  @media (max-width: 768px) {
-    justify-content: center;
+  @media (max-width: 1024px) {
+    flex-wrap: wrap;
   }
 
   .product-item {

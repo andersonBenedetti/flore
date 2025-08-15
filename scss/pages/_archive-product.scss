@@ -1,17 +1,26 @@
 #archive-product {
   .section-intro {
     padding: 50px 0;
+    background: url("./img/store-intro.webp") no-repeat center center;
+    background-size: cover;
+    padding-top: 250px;
+    padding-bottom: 150px;
 
     @media (max-width: 768px) {
-      padding-top: 10px;
+      padding-top: 150px;
+      padding-bottom: 80px;
     }
 
     h1 {
-      @include title-section;
+      @include title-intro;
+      color: $white;
+      text-align: center;
     }
   }
 
   .section-filters {
+    padding: 50px 0;
+
     .filters-content {
       display: flex;
       justify-content: space-between;
@@ -34,40 +43,65 @@
         }
       }
 
+      .filters-right {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 20px;
+
+        @media (max-width: 768px) {
+          gap: 10px;
+          width: 100%;
+        }
+      }
+
+      .products-count {
+        @include title-card;
+        color: $gray;
+      }
+
       .custom-select {
         position: relative;
         display: inline-block;
-        width: 220px;
-        height: 50px;
-        border: 1px solid $border-cat;
-        background-color: $white-color;
+        width: 280px;
+        height: 52px;
+        border: 1.5px solid $border-btn;
+        border-radius: 3px;
+        background-color: $white;
+        overflow: hidden;
 
         @media (max-width: 768px) {
           width: 100%;
         }
 
         select {
-          background-color: $white-color;
-          border: 0;
-          border-radius: 0;
-          padding: 0 20px;
+          background-color: transparent;
+          border: none;
+          border-radius: inherit;
+          padding: 0 40px 0 20px;
           appearance: none;
           cursor: pointer;
           width: 100%;
           height: 100%;
-          color: $border-cat;
+          color: $gray;
+          font-size: 14px;
+          font-weight: 700;
+          line-height: 1;
+
+          &:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba($border-btn, 0.2);
+          }
         }
 
         &::after {
           content: "";
-          background-image: url("./icons/arrow-select.svg");
-          background-size: contain;
-          background-repeat: no-repeat;
+          background: url("./icons/arrow-select.svg") no-repeat center / contain;
           width: 10px;
           height: 10px;
           position: absolute;
           right: 20px;
-          top: 55%;
+          top: 50%;
           transform: translateY(-50%);
           pointer-events: none;
         }
@@ -76,100 +110,36 @@
   }
 
   .products-store {
-    padding-top: 50px;
     padding-bottom: 100px;
 
-    .pagination {
+    .pagination-wrap {
       display: flex;
       justify-content: center;
+      gap: 5px;
       margin-top: 4em;
 
-      .woocommerce-pagination {
-        ul.page-numbers {
-          display: flex;
-          gap: 0.5em;
-          list-style: none;
-          padding: 0;
-          margin: 0;
+      a,
+      span {
+        display: inline-block;
+        padding: 10px 15px;
+        border: 1px solid $border-pagination;
+        border-radius: 3px;
+        color: $color-pagination;
+        text-decoration: none;
+        font-weight: 400;
+        transition: all 0.3s ease;
 
-          li {
-            a,
-            span {
-              display: inline-block;
-              padding: 0.5em 1em;
-              border: 1px solid $border-product;
-              border-radius: 4px;
-              color: $black;
-              text-decoration: none;
-              font-weight: 500;
-              transition: all 0.3s ease;
-
-              &:hover {
-                background-color: $black;
-                color: $white;
-                border-color: $black;
-              }
-            }
-
-            .current {
-              background-color: $black;
-              color: $white;
-              pointer-events: none;
-            }
-
-            .next,
-            .prev {
-              font-weight: bold;
-            }
-          }
+        &:hover {
+          background-color: $tertiaryColor;
+          color: $white;
+          border-color: $tertiaryColor;
         }
       }
-    }
 
-    #load-more {
-      background: transparent;
-      color: $black;
-      border: none;
-      border-radius: 4px;
-      font-size: 1rem;
-      padding: 12px 25px;
-      cursor: pointer;
-      position: relative;
-      display: inline-block;
-      overflow: hidden;
-      transition: background 0.3s ease, transform 0.2s ease, color 0.2s ease;
-
-      &:hover:not(.loading) {
-        background: darken($black, 10%);
-        transform: translateY(-2px);
-      }
-
-      &.loading {
-        color: transparent;
+      .current {
+        background-color: $tertiaryColor;
+        color: $white;
         pointer-events: none;
-
-        &::after {
-          content: "";
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          width: 24px;
-          height: 24px;
-          margin: -12px 0 0 -12px;
-          border: 3px solid $black;
-          border-top-color: transparent;
-          border-radius: 50%;
-          animation: spin 0.8s linear infinite;
-        }
-      }
-    }
-
-    @keyframes spin {
-      0% {
-        transform: rotate(0deg);
-      }
-      100% {
-        transform: rotate(360deg);
       }
     }
   }

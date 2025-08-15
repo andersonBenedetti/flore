@@ -142,6 +142,7 @@
 
       .title-section {
         @include title-section;
+        color: $tertiaryColor;
       }
     }
 

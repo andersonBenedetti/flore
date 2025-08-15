@@ -1,156 +1,44 @@
 <?php get_header(); ?>
 
-<?php
-function format_single_product($id)
-{
-    $product = wc_get_product($id);
-
-    return [
-        'id' => $id,
-        'name' => $product->get_name(),
-        'link' => $product->get_permalink(),
-        'description' => $product->get_description(),
-        'short_description' => $product->get_short_description(),
-    ];
-}
-
-?>
-
 <main id="single-product">
+
+    <div class="intro-page"></div>
 
     <section class="section-content container">
         <?php
         if (have_posts()) {
             while (have_posts()) {
                 the_post();
-                $produto = format_single_product(get_the_ID());
+                global $product;
                 ?>
+                <div class="product-gallery">
+                    <?php echo do_shortcode('[wcgs_gallery_slider]'); ?>
+                </div>
+
                 <div class="product-detail">
                     <div class="detail-content">
-                        <h1><?= $produto['name']; ?></h1>
+                        <h1><?php the_title(); ?></h1>
 
                         <div class="short-description">
-                            <?= wpautop(wp_kses_post($produto['short_description'])); ?>
+                            <?php echo apply_filters('woocommerce_short_description', $product->get_short_description()); ?>
                         </div>
 
-                        <?php
-                        $acabamentos = [];
+                        <div class="product-price">
+                            <?php woocommerce_template_single_price(); ?>
+                        </div>
 
-                        for ($i = 1; $i <= 4; $i++) {
-                            $nome = get_field("nome_do_acabamento" . ($i == 1 ? '' : "_$i"));
-                            $link = get_field("link_do_acabamento" . ($i == 1 ? '' : "_$i"));
-
-                            if (!empty($nome) && !empty($link)) {
-                                $acabamentos[] = [
-                                    'nome' => $nome,
-                                    'link' => $link,
-                                ];
-                            }
-                        }
-
-                        if (!empty($acabamentos)): ?>
-                            <div class="list-acabamentos">
-                                <?php
-                                $current_path = wp_parse_url(get_permalink(), PHP_URL_PATH);
-                                $current_path = untrailingslashit($current_path);
-                                ?>
-
-                                <?php foreach ($acabamentos as $acabamento):
-                                    $acabamento_path = untrailingslashit($acabamento['link']);
-                                    $is_active = $acabamento_path === $current_path;
-                                    ?>
-                                    <a class="btn <?php echo $is_active ? 'active' : ''; ?>"
-                                        href="<?php echo esc_url($acabamento['link']); ?>">
-                                        <?php echo esc_html($acabamento['nome']); ?>
-                                    </a>
-                                <?php endforeach; ?>
-                            </div>
-                        <?php endif; ?>
+                        <p class="text-info">5% OFF no PIX ou em até 3x sem juros</p>
 
                         <?php woocommerce_template_single_add_to_cart(); ?>
 
-                        <div class="btn-details">
-                            <?php
-                            if ($product->is_type('simple') || ($product->is_type('variable') && $product->get_available_variations())) {
-                                $whatsapp_number = '554834690743';
-                                $mensagem = "Olá! Tenho interesse no produto *{$produto['name']}*. Pode me passar mais informações?";
-                                $link_whats = "https://wa.me/{$whatsapp_number}?text=" . urlencode($mensagem);
-                                ?>
-                                <a href="<?= esc_url($link_whats); ?>" target="_blank" class="btn btn-whatsapp">
-                                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/icons/whatsapp.svg" alt="whatsapp">
-                                    Compre aqui
-                                </a>
-                            <?php } ?>
-
-                            <?php $link_3d = get_field('3d_w'); ?>
-                            <?php if ($link_3d): ?>
-                                <a class="btn-3d" href="<?php echo esc_url($link_3d); ?>" target="_blank" rel="noopener">
-                                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/icons/3d.svg" alt="3D Warehouse">
-                                </a>
-                            <?php endif; ?>
-                        </div>
-
                     </div>
-
-                    <?php
-                    $peso = get_field('peso') ?: '';
-                    $medidas = get_field('medidas') ?: '';
-
-                    if ($medidas) {
-                        $medidas = preg_replace_callback(
-                            '#<a\s[^>]*href=["\']([^"\']+\.(?:jpg|jpeg|png|gif|webp))["\'][^>]*>(.*?)</a>#i',
-                            function ($matches) {
-                                $url = esc_url($matches[1]);
-                                $label = strip_tags($matches[2]);
-                                return '<a href="#popup-imagem" class="abrir-popup" data-img="' . $url . '">' . esc_html($label) . '</a>';
-                            },
-                            $medidas
-                        );
-                    }
-                    ?>
-
-                    <div class="abas-btns">
-                        <div class="toggle-content">
-                            <button class="toggle-btn" data-target="descricao">
-                                Descrição
-                                <img src="<?php echo get_stylesheet_directory_uri(); ?>/icons/arrow-bottom.svg" alt="Flecha">
-                            </button>
-                            <div id="descricao" class="tab-content">
-                                <?php echo wpautop(wp_kses_post($produto['description'])); ?>
-                            </div>
-                        </div>
-
-                        <?php if ($peso): ?>
-                            <div class="toggle-content">
-
-                                <button class="toggle-btn" data-target="peso">
-                                    Peso
-                                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/icons/arrow-bottom.svg" alt="Flecha">
-                                </button>
-                                <div id="peso" class="tab-content">
-                                    <?php echo wp_kses_post($peso); ?>
-                                </div>
-                            </div>
-                        <?php endif; ?>
-
-                        <?php if ($medidas): ?>
-                            <div class="toggle-content">
-
-                                <button class="toggle-btn" data-target="medidas">
-                                    Medidas
-                                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/icons/arrow-bottom.svg" alt="Flecha">
-                                </button>
-                                <div id="medidas" class="tab-content">
-                                    <?php echo $medidas; ?>
-                                </div>
-                            </div>
-                        <?php endif; ?>
-                    </div>
-
                 </div>
+            </section>
 
-                <div class="product-gallery">
-                    <?php echo do_shortcode('[wcgs_gallery_slider]'); ?>
+            <section class="section-description container">
+                <div class="description-content">
+                    <h2 class="title-section">Detalhes do produto</h2>
+                    <?php echo wpautop(wp_kses_post($product->get_description())); ?>
                 </div>
             </section>
 
@@ -158,20 +46,9 @@ function format_single_product($id)
         } ?>
 
     <?php
-    global $woocommerce;
-    $cart_cross_sells = [];
-
-    if ($product = wc_get_product(get_the_ID())) {
-        $cross_sell_ids = $product->get_cross_sell_ids();
-
-        if (!empty($cross_sell_ids)) {
-            foreach ($cross_sell_ids as $product_id) {
-                $cart_cross_sells[] = wc_get_product($product_id);
-            }
-        }
-    }
-
-    if (!empty($cart_cross_sells)) {
+    $cross_sell_ids = $product->get_cross_sell_ids();
+    if (!empty($cross_sell_ids)) {
+        $cart_cross_sells = array_map('wc_get_product', $cross_sell_ids);
         $formatted_cross = format_products($cart_cross_sells);
         ?>
         <section class="cross-sell-products related-list">
@@ -185,11 +62,11 @@ function format_single_product($id)
 
                     <div class="swiper cross-sell-carousel">
                         <div class="swiper-wrapper">
-                            <?php foreach ($formatted_cross as $product): ?>
+                            <?php foreach ($formatted_cross as $p): ?>
                                 <div class="swiper-slide">
-                                    <a href="<?= esc_url($product['link']); ?>" class="product-link">
-                                        <img src="<?= esc_url($product['img']); ?>" alt="<?= esc_attr($product['name']); ?>" />
-                                        <h3><?= esc_html($product['name']); ?></h3>
+                                    <a href="<?= esc_url($p['link']); ?>" class="product-link">
+                                        <img src="<?= esc_url($p['img']); ?>" alt="<?= esc_attr($p['name']); ?>" />
+                                        <h3><?= esc_html($p['name']); ?></h3>
                                     </a>
                                 </div>
                             <?php endforeach; ?>
@@ -201,37 +78,29 @@ function format_single_product($id)
     <?php } ?>
 
     <?php
-    $upsell_ids = get_post_meta($produto['id'], '_upsell_ids', true);
-    $upsell_products = [];
-
+    // Upsells
+    $upsell_ids = $product->get_upsell_ids();
     if (!empty($upsell_ids)) {
-        foreach ($upsell_ids as $product_id) {
-            $upsell_products[] = wc_get_product($product_id);
-        }
-    }
-
-    if (!empty($upsell_products)) {
+        $upsell_products = array_map('wc_get_product', $upsell_ids);
         $formatted_upsells = format_products($upsell_products);
         ?>
-        <section class="upsell-products related-list">
+        <section class="section-products">
             <div class="container">
-                <h2 class="title">VOCÊ TAMBÉM PODE GOSTAR:</h2>
-                <div class="swiper upsell-carousel">
-                    <div class="swiper-wrapper">
-                        <?php foreach ($formatted_upsells as $product): ?>
-                            <div class="swiper-slide">
-                                <a href="<?= esc_url($product['link']); ?>" class="product-link">
-                                    <img src="<?= esc_url($product['img']); ?>" alt="<?= esc_attr($product['name']); ?>" />
-                                    <h3><?= esc_html($product['name']); ?></h3>
-                                </a>
-                            </div>
-                        <?php endforeach; ?>
-                    </div>
+                <div class="products-top">
+                    <h2 class="title-section">De acordo com você</h2>
+                    <a class="btn dkt" href="/loja">Ver mais itens</a>
                 </div>
 
-                <a class="btn" href="/loja">Ver todos os produtos</a>
+                <?php flore_product_list($formatted_upsells); ?>
+
+                <a class="btn mbl" href="/loja">
+                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/icons/cart.svg" alt="Carrinho lateral">
+                    Ver mais itens
+                </a>
             </div>
         </section>
     <?php } ?>
 
-</main><?php get_footer(); ?>
+</main>
+
+<?php get_footer(); ?>

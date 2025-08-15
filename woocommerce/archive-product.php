@@ -7,7 +7,7 @@
       <h1>
         <?php
         if (is_shop()) {
-          echo 'Loja';
+          echo 'Últimas novidades';
         } else {
           single_cat_title();
         }
@@ -39,75 +39,47 @@
             }
             ?>
           </div>
-
-          <?php
-          $acabamentos = get_terms(array(
-            'taxonomy' => 'pa_acabamento',
-            'hide_empty' => false,
-          ));
-
-          if (!empty($acabamentos) && !is_wp_error($acabamentos)) {
-            echo '<div class="custom-select">';
-            echo '<select class="acabamento-select" onchange="location = this.value;">';
-            echo '<option value="">Filtre por Acabamento</option>';
-            foreach ($acabamentos as $acabamento) {
-              $url = add_query_arg('filter_acabamento', $acabamento->slug, get_permalink(wc_get_page_id('shop')));
-              echo '<option value="' . esc_url($url) . '">' . esc_html($acabamento->name) . '</option>';
-            }
-            echo '</select>';
-            echo '</div>';
-          }
-
-          $cores = get_terms(array(
-            'taxonomy' => 'pa_cor',
-            'hide_empty' => false,
-          ));
-
-          if (!empty($cores) && !is_wp_error($cores)) {
-            echo '<div class="custom-select">';
-            echo '<select class="cor-select" onchange="location = this.value;">';
-            echo '<option value="">Filtre por Cor</option>';
-            foreach ($cores as $cor) {
-              $url = add_query_arg('filter_cor', $cor->slug, get_permalink(wc_get_page_id('shop')));
-              echo '<option value="' . esc_url($url) . '">' . esc_html($cor->name) . '</option>';
-            }
-            echo '</select>';
-            echo '</div>';
-          }
-          ?>
         </div>
 
-        <div class="custom-select">
-          <?php
-          $orderby_options = apply_filters(
-            'woocommerce_catalog_orderby',
-            array(
-              'menu_order' => 'Ordenação padrão',
-              'popularity' => 'Mais populares',
-              'rating' => 'Melhor avaliação',
-              'date' => 'Mais recentes',
-            )
-          );
+        <div class="filters-right">
+          <p class="products-count">
+            <?php
+            global $wp_query;
+            echo "<span>" . $wp_query->found_posts . "</span>" . " Resultados encontrados ";
+            ?>
+          </p>
+          <div class="custom-select">
+            <?php
+            $orderby_options = apply_filters(
+              'woocommerce_catalog_orderby',
+              array(
+                'menu_order' => 'Ordenação padrão',
+                'popularity' => 'Mais populares',
+                'rating' => 'Melhor avaliação',
+                'date' => 'Mais recentes',
+              )
+            );
 
-          $current_orderby = isset($_GET['orderby']) ? wc_clean($_GET['orderby']) : 'menu_order';
+            $current_orderby = isset($_GET['orderby']) ? wc_clean($_GET['orderby']) : 'menu_order';
 
-          $base_url = get_permalink(wc_get_page_id('shop'));
+            $base_url = get_permalink(wc_get_page_id('shop'));
 
-          $query_args = $_GET;
-          unset($query_args['orderby']);
+            $query_args = $_GET;
+            unset($query_args['orderby']);
 
-          echo '<select class="orderby-select" onchange="if(this.value) window.location.href=this.value">';
-          echo '<option value="">Ordenar por</option>';
+            echo '<select class="orderby-select" onchange="if(this.value) window.location.href=this.value">';
+            echo '<option value="">Ordenar por</option>';
 
-          foreach ($orderby_options as $value => $label) {
-            $query_args['orderby'] = $value;
-            $url = esc_url(add_query_arg($query_args, $base_url));
+            foreach ($orderby_options as $value => $label) {
+              $query_args['orderby'] = $value;
+              $url = esc_url(add_query_arg($query_args, $base_url));
 
-            echo '<option value="' . $url . '" ' . selected($current_orderby, $value, false) . '>' . esc_html($label) . '</option>';
-          }
+              echo '<option value="' . $url . '" ' . selected($current_orderby, $value, false) . '>' . esc_html($label) . '</option>';
+            }
 
-          echo '</select>';
-          ?>
+            echo '</select>';
+            ?>
+          </div>
         </div>
       </div>
     </div>
@@ -115,9 +87,7 @@
 
   <section class="products-store">
     <div class="container">
-
       <?php
-      global $wp_query;
       $products = [];
 
       if (have_posts()) {
@@ -134,31 +104,43 @@
       }
 
       $formatted_products = format_products($products);
-
-      $is_ajax_scroll = isset($_GET['scroll']) && $_GET['scroll'] == 1;
       ?>
 
       <div id="products-container">
         <?php if (!empty($formatted_products)) {
-          vaso_e_cor_product_list($formatted_products);
+          flore_product_list($formatted_products);
         } ?>
       </div>
 
-      <?php if (!empty($formatted_products) && !$is_ajax_scroll): ?>
-        <div class="load-more-wrap" style="text-align:center; margin-top: 30px;">
-          <button id="load-more" data-page="2" data-max-pages="<?php echo esc_attr($wp_query->max_num_pages); ?>">
-            Carregar mais
-          </button>
-        </div>
-      <?php endif; ?>
-
-      <?php if (empty($formatted_products) && !$is_ajax_scroll): ?>
+      <?php if (empty($formatted_products)): ?>
         <section class="no-results">
           <div class="container">
             <p>Nenhum resultado encontrado.</p>
             <p>Confira outras categorias ou redefina os filtros para encontrar o produto ideal.</p>
           </div>
         </section>
+      <?php endif; ?>
+
+      <?php if ($wp_query->max_num_pages > 1 && empty($_GET['scroll'])): ?>
+        <div class="pagination-wrap">
+          <?php
+          echo paginate_links(array(
+            'base' => str_replace(999999999, '%#%', esc_url(get_pagenum_link(999999999))),
+            'total' => $wp_query->max_num_pages,
+            'current' => max(1, get_query_var('paged')),
+            'format' => '?paged=%#%',
+            'show_all' => false,
+            'type' => 'plain',
+            'end_size' => 2,
+            'mid_size' => 1,
+            'prev_next' => true,
+            'prev_text' => __('Anterior'),
+            'next_text' => __('Próximo'),
+            'add_args' => false,
+            'add_fragment' => '',
+          ));
+          ?>
+        </div>
       <?php endif; ?>
 
     </div>

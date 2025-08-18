@@ -22,9 +22,13 @@ Version: 1.0
 @import "components/dots";
 @import "components/popup";
 @import "components/toggle";
+@import "components/quantity";
 
 @import "pages/page-home";
 @import "pages/page-form";
 @import "pages/archive-product";
 @import "pages/single-product";
 @import "pages/index";
+@import "pages/cart";
+@import "pages/account";
+@import "pages/checkout";

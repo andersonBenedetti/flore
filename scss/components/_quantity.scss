@@ -1,0 +1,43 @@
+.quantity {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid $border-color;
+  border-radius: 6px;
+  overflow: hidden;
+  max-width: 120px;
+
+  .qty {
+    // Remove setas no Chrome, Safari, Edge
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    // Remove setas no Firefox
+    &[type="number"] {
+      -moz-appearance: textfield;
+    }
+  }
+
+  .qty {
+    width: 50px;
+    text-align: center;
+    border: none;
+    outline: none;
+  }
+
+  .qty-btn {
+    background: $white-color;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 1;
+    transition: background 0.2s;
+
+    &:hover {
+      background: #e1e1e1;
+    }
+  }
+}

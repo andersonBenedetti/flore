@@ -75,7 +75,7 @@
                             <img src="<?php echo get_stylesheet_directory_uri(); ?>/icons/user.svg" alt="Minha conta">
                         </a>
 
-                        <a href="#" class="icon-items">
+                        <a href="#" class="icon-items xoo-wsc-cart-trigger">
                             <img src="<?php echo get_stylesheet_directory_uri(); ?>/icons/cart.svg"
                                 alt="Carrinho lateral">
                         </a>

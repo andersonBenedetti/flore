@@ -1,11 +1,13 @@
 #page-template {
-  padding: 50px 0;
-
   .intro {
+    padding: 50px 0;
+    background-color: $primaryColor;
+    margin-bottom: 50px;
+
     h1 {
-      @include text;
+      @include title-intro;
+      color: $white;
       text-align: center;
-      padding: 0 20px;
     }
   }
 
@@ -29,12 +31,12 @@
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 20px;
-      border-top-color: $black !important;
+      border-top-color: $tertiaryColor !important;
     }
 
     .woocommerce-info::before,
     .woocommerce-info a {
-      color: $black !important;
+      color: $tertiaryColor !important;
     }
 
     .woocommerce-error::after,

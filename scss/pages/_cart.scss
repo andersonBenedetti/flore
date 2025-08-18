@@ -11,7 +11,7 @@
     text-align: center;
     overflow: hidden;
     border-collapse: separate;
-    border: solid $border-select 1px !important;
+    border: solid $border-color 1px !important;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
@@ -20,8 +20,8 @@
     thead {
       tr {
         th:nth-child(2) {
-          border-left: 1px solid $border-select !important;
-          border-right: 1px solid $border-select !important;
+          border-left: 1px solid $border-color !important;
+          border-right: 1px solid $border-color !important;
         }
 
         th {
@@ -37,12 +37,12 @@
     td {
       padding: 10px !important;
       vertical-align: middle !important;
-      border-color: $border-select !important;
+      border-color: $border-color !important;
 
       &.wc-block-cart-item__product {
-        border-left: 1px solid $border-select;
-        border-right: 1px solid $border-select;
-        border-color: $border-select !important;
+        border-left: 1px solid $border-color;
+        border-right: 1px solid $border-color;
+        border-color: $border-color !important;
 
         > div {
           display: flex;
@@ -102,7 +102,7 @@
     background-color: $white;
     padding: 0 !important;
     border-radius: 10px;
-    border: solid $border-select 1px !important;
+    border: solid $border-color 1px !important;
 
     .wc-block-cart__totals-title {
       font-size: 0.875em;
@@ -113,7 +113,7 @@
 
     .wc-block-components-totals-wrapper,
     .wp-block-woocommerce-cart-order-summary-totals-block {
-      border-color: $border-select !important;
+      border-color: $border-color !important;
     }
 
     .wc-block-components-totals-coupon {
@@ -124,7 +124,7 @@
     }
 
     .wp-block-woocommerce-cart-order-summary-subtotal-block {
-      border-bottom: 1px solid $border-select;
+      border-bottom: 1px solid $border-color;
       padding: 16px 0 !important;
     }
 
@@ -132,12 +132,25 @@
       padding: 0 16px !important;
 
       > a {
-        background-color: $black;
-        border-radius: 5px;
-        font-size: 1em;
-        font-weight: bold;
-        letter-spacing: 0.1em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        height: 54px;
+        padding: 0 50px;
+        @include text;
+        background-color: $tertiaryColor;
+        border: 0;
         color: $white;
+        box-sizing: border-box;
+        border-radius: 0;
+        cursor: pointer;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        &:hover {
+          transform: scale(1.05);
+          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
       }
     }
   }
